@@ -37,6 +37,7 @@ public class Mp3Player extends Application {
         Button pauseButton = new Button("Pause");
         stopButton.setId("pauseButton");
         
+        
         BorderPane border = new BorderPane();
         HBox hBox = new HBox();
         hBox.getChildren().addAll(playButton,pauseButton, stopButton);
