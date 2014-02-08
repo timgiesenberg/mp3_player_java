@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mp3player;
+package org.hackerthon.mp3player.view;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -18,6 +18,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.hackerthon.mp3player.controller.Mp3PlayerController;
 
 /**
  *
@@ -30,9 +31,11 @@ public class Mp3Player extends Application {
     @Override
     public void start(final Stage primaryStage) {
         Button playButton = new Button("Play");
+        playButton.setId("play_button");
         Button stopButton = new Button("Stop");
+        stopButton.setId("stopButton");
         Button pauseButton = new Button("Pause");
-        
+        stopButton.setId("pauseButton");
         
         BorderPane border = new BorderPane();
         HBox hBox = new HBox();
@@ -42,24 +45,7 @@ public class Mp3Player extends Application {
         primaryStage.setScene(new Scene(border, 600, 350));
         primaryStage.show();
         
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {    
-                FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Mp3 files (*.mp3)", "*.mp3");
-                fileChooser.getExtensionFilters().add(extensionFilter);
-                fileChooser.setTitle("Chose a mp3 file");
-                File mp3 = fileChooser.showOpenDialog(primaryStage);
-                String pathTomp3 = mp3.toURI().toString();
-                playMp3(pathTomp3);
-            }
-        });
-    }
-
-    private void playMp3(String pathToMp3) {
-        Media media = new Media(pathToMp3);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        playButton.setOnAction(new Mp3PlayerController(primaryStage));
     }
     
     public static void main(String[] args) {
